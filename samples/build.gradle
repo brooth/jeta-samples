@@ -14,9 +14,6 @@
  *  limitations under the License.
  */
 
-group = 'org.brooth.jeta-samples'
-version = '0.1-alpha'
-
 buildscript {
     repositories {
         maven {
@@ -40,19 +37,24 @@ repositories {
 }
 
 dependencies {
-    apt 'org.brooth.jeta:jeta-apt:0.1-alpha'
-    compile 'org.brooth.jeta:jeta:0.1-alpha'
+    apt project(':my-processor')
+    apt 'org.brooth.jeta:jeta-apt-impl:0.1-alpha'
+    apt files ('../my-processor/build/libs/my-processor-0.1-alpha-apt.jar')
+
+    compile project(':my-processor')
+    compile 'org.brooth.jeta:jeta-impl:0.1-alpha'
 }
 
 tasks.withType(JavaCompile) { task ->
     def args = task.options.compilerArgs
     args << '-AjetaDebug=true'
     args << '-AjetaFileComment=\nLicense text\n'
+    args << '-AjetaProcessors=org.brooth.jeta.apt.samples.MyProcessor'
     args << '-AjetaMapMetasitoryPackage=org.brooth.jeta.samples'
 }
 
-task runas(type:JavaExec) << {
-   main = project['mainClass']
+task runas(type:JavaExec) {
+   main = project.hasProperty('mainClass') ? project.getProperty('mainClass') : null
    classpath = sourceSets.main.runtimeClasspath
 }
 

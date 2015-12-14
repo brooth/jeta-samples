@@ -64,6 +64,9 @@ public class MetaHelper {
         metaEntityFactory = new MetaEntityFactory(metasitory);
     }
 
+    public Metasitory getMetasitory() {
+        return metasitory;
+    }
 
     public static void injectMeta(Object master) {
         new MetaController(getInstance().metasitory, master).injectMeta(getInstance().metaEntityFactory);
