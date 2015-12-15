@@ -14,9 +14,6 @@
  *  limitations under the License.
  */
 
-group = 'org.brooth.jeta-samples'
-version = '0.1-alpha'
-
 apply plugin: 'java'
 
 sourceSets {
@@ -42,5 +39,5 @@ task aptJar(type: Jar) {
     from sourceSets.apt.output
     classifier = 'apt'
 }
-tasks['jar'].dependsOn aptJar
+jar.dependsOn aptJar
 

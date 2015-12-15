@@ -34,6 +34,6 @@ public class MyProcessorSample {
 	}
 	
 	public static void main(String[] args) {
-		new MyProcessorSample().sayHello();;
+		new MyProcessorSample().sayHello();
 	}
 }

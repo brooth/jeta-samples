@@ -38,11 +38,11 @@ repositories {
 
 dependencies {
     apt project(':my-processor')
-    apt 'org.brooth.jeta:jeta-apt-impl:0.1-alpha'
-    apt files ('../my-processor/build/libs/my-processor-0.1-alpha-apt.jar')
+    apt project(':my-processor').sourceSets.apt.output
+    apt 'org.brooth.jeta:jeta-apt:0.1-alpha'
 
     compile project(':my-processor')
-    compile 'org.brooth.jeta:jeta-impl:0.1-alpha'
+    compile 'org.brooth.jeta:jeta:0.1-alpha'
 }
 
 tasks.withType(JavaCompile) { task ->
