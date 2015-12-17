@@ -20,7 +20,7 @@ import javax.lang.model.element.Modifier;
 
 import org.brooth.jeta.apt.MetacodeContext;
 import org.brooth.jeta.apt.ProcessorEnvironment;
-import org.brooth.jeta.apt.processors.SimpleProcessor;
+import org.brooth.jeta.apt.processors.AbstractProcessor;
 import org.brooth.jeta.samples.myprocessor.MyAnnotation;
 import org.brooth.jeta.samples.myprocessor.MyMetacode;
 
@@ -32,7 +32,7 @@ import com.squareup.javapoet.TypeSpec.Builder;
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-public class MyProcessor extends SimpleProcessor {
+public class MyProcessor extends AbstractProcessor {
 
     public MyProcessor() {
         super(MyAnnotation.class);
