@@ -16,12 +16,15 @@
 
 package org.brooth.jeta.samples;
 
-import org.brooth.jeta.meta.MetaController;
-import org.brooth.jeta.meta.MetaEntityFactory;
+import java.lang.annotation.Annotation;
+import java.util.List;
+
 import org.brooth.jeta.collector.ObjectCollectorController;
 import org.brooth.jeta.collector.TypeCollectorController;
 import org.brooth.jeta.log.LogController;
 import org.brooth.jeta.log.NamedLoggerProvider;
+import org.brooth.jeta.meta.MetaController;
+import org.brooth.jeta.meta.MetaEntityFactory;
 import org.brooth.jeta.metasitory.MapMetasitory;
 import org.brooth.jeta.metasitory.Metasitory;
 import org.brooth.jeta.observer.ObservableController;
@@ -33,13 +36,12 @@ import org.brooth.jeta.pubsub.SubscriberController;
 import org.brooth.jeta.pubsub.SubscriptionHandler;
 import org.brooth.jeta.util.ImplementationController;
 import org.brooth.jeta.util.MultitonController;
+import org.brooth.jeta.util.MultitonMetacode;
 import org.brooth.jeta.util.Provider;
 import org.brooth.jeta.util.SingletonController;
+import org.brooth.jeta.util.SingletonMetacode;
 import org.brooth.jeta.validate.ValidationController;
 import org.brooth.jeta.validate.ValidationException;
-
-import java.lang.annotation.Annotation;
-import java.util.List;
 
 /**
  *
@@ -120,11 +122,11 @@ public class MetaHelper {
         new LogController(getInstance().metasitory, master).createLogger(provider);
     }
 
-    public static void createSingleton(Class<?> masterClass) {
-        new SingletonController(getInstance().metasitory, masterClass).createSingleton();
+    public static <M> SingletonMetacode<M> getSingleton(Class<M> masterClass) {
+        return new SingletonController<>(getInstance().metasitory, masterClass).getMetacode();
     }
 
-    public static void createMultitonInstance(Class<?> masterClass, Object key) {
-        new MultitonController<>(getInstance().metasitory, masterClass).createInstance(key);
+    public static <M> MultitonMetacode<M> getMultiton(Class<M> masterClass) {
+        return new MultitonController<>(getInstance().metasitory, masterClass).getMetacode();
     }
 }

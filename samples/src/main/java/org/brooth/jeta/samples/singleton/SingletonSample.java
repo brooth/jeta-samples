@@ -18,27 +18,19 @@ package org.brooth.jeta.samples.singleton;
 
 import org.brooth.jeta.samples.MetaHelper;
 import org.brooth.jeta.util.Singleton;
+import org.brooth.jeta.util.SingletonMetacode;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
+@Singleton
 public class SingletonSample {
 
-    @Singleton(staticConstructor = "newInstance")
-    static SingletonSample singleton;
+    static SingletonMetacode<SingletonSample> singleton =
+        MetaHelper.getSingleton(SingletonSample.class);
 
     public static SingletonSample getInstance() {
-        if (singleton == null)
-            MetaHelper.createSingleton(SingletonSample.class);
-
-        return singleton;
-    }
-
-    static SingletonSample newInstance() {
-        if (singleton != null)
-            throw new IllegalStateException("Jeta sucks?");
-
-        return new SingletonSample();
+        return singleton.getSingleton();
     }
 
     public static void main(String[] args) {

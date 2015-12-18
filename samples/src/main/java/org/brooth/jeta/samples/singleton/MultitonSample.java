@@ -18,22 +18,19 @@ package org.brooth.jeta.samples.singleton;
 
 import org.brooth.jeta.samples.MetaHelper;
 import org.brooth.jeta.util.Multiton;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.brooth.jeta.util.MultitonMetacode;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
+@Multiton
 public class MultitonSample {
 
-    @Multiton
-    static final Map<Object, MultitonSample> multiton = new HashMap<>();
+    static MultitonMetacode<MultitonSample> multiton = 
+        MetaHelper.getMultiton(MultitonSample.class);
 
     public static MultitonSample getInstance(String key) {
-        if (!multiton.containsKey(key))
-            MetaHelper.createMultitonInstance(MultitonSample.class, key);
-        return multiton.get(key);
+        return multiton.getMultiton(key);
     }
 
     MultitonSample(Object key) {
