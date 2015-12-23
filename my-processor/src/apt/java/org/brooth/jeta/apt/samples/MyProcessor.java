@@ -15,19 +15,18 @@
  */
 package org.brooth.jeta.apt.samples;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
-
-import org.brooth.jeta.apt.MetacodeContext;
-import org.brooth.jeta.apt.ProcessorEnvironment;
-import org.brooth.jeta.apt.processors.AbstractProcessor;
-import org.brooth.jeta.samples.myprocessor.MyAnnotation;
-import org.brooth.jeta.samples.myprocessor.MyMetacode;
-
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec.Builder;
+import org.brooth.jeta.apt.MetacodeContext;
+import org.brooth.jeta.apt.RoundContext;
+import org.brooth.jeta.apt.processors.AbstractProcessor;
+import org.brooth.jeta.samples.myprocessor.MyAnnotation;
+import org.brooth.jeta.samples.myprocessor.MyMetacode;
+
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
@@ -39,8 +38,8 @@ public class MyProcessor extends AbstractProcessor {
     }
 
     @Override
-    public boolean process(ProcessorEnvironment env, Builder builder) {
-        MetacodeContext context = env.metacodeContext();
+    public boolean process(Builder builder, RoundContext roundContext) {
+        MetacodeContext context = roundContext.metacodeContext();
         ClassName masterClassName = ClassName.get(context.masterElement());
         builder.addSuperinterface(ParameterizedTypeName.get(
                 ClassName.get(MyMetacode.class), masterClassName));
@@ -51,7 +50,7 @@ public class MyProcessor extends AbstractProcessor {
                 .returns(void.class)
                 .addParameter(masterClassName, "master");
 
-        for (Element element : env.elements()) {
+        for (Element element : roundContext.elements()) {
             String fieldName = element.getSimpleName().toString();
             methodBuilder.addStatement("master.$L = \"Hello, Jeta\"", fieldName);
         }

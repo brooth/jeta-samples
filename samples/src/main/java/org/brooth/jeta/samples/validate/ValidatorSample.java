@@ -16,6 +16,7 @@
 
 package org.brooth.jeta.samples.validate;
 
+import com.google.common.base.Joiner;
 import org.brooth.jeta.samples.MetaHelper;
 import org.brooth.jeta.validate.*;
 
@@ -30,13 +31,15 @@ public class ValidatorSample {
             emitExpression = "$f > 18",
             emitError = "${I18n.get(\"TOO_YOUNG\", \"en\")}"
     )
-    public interface AgeValidator extends Validator {}
+    public interface AgeValidator extends Validator {
+    }
 
     @MetaValidator(
             emitExpression = "$f <= $m.age - 18",
             emitError = "${$f} years of experience is too high for the age of ${$m.age}"
     )
-    public interface ExperienceValidator extends Validator {}
+    public interface ExperienceValidator extends Validator {
+    }
 
     public static class HireAction {
         @Validate(NotBlank.class)
@@ -63,16 +66,13 @@ public class ValidatorSample {
         public void checkIsAppropriate() {
             List<String> errors = MetaHelper.validateSafe(this);
             if (errors.size() > 0) {
-                System.out.println("Oops, ");
-                for (String error : errors) {
-                    System.out.println(error);
-                }
+                System.out.println("Oops, " + Joiner.on(", ").join(errors));
             }
         }
     }
 
     public static void main(String[] args) {
-        new HireAction("John Smith", 45, 15, "Master Chef").execute();
         new HireAction(null, 17, 15).checkIsAppropriate();
+        new HireAction("John Smith", 45, 15, "Master Chef").execute();
     }
 }
