@@ -21,6 +21,10 @@ import java.util.List;
 
 import org.brooth.jeta.collector.ObjectCollectorController;
 import org.brooth.jeta.collector.TypeCollectorController;
+import org.brooth.jeta.eventbus.BaseEventBus;
+import org.brooth.jeta.eventbus.EventBus;
+import org.brooth.jeta.eventbus.SubscriberController;
+import org.brooth.jeta.eventbus.SubscriptionHandler;
 import org.brooth.jeta.log.LogController;
 import org.brooth.jeta.log.NamedLoggerProvider;
 import org.brooth.jeta.meta.MetaController;
@@ -31,9 +35,6 @@ import org.brooth.jeta.observer.ObservableController;
 import org.brooth.jeta.observer.ObserverController;
 import org.brooth.jeta.observer.ObserverHandler;
 import org.brooth.jeta.proxy.ProxyController;
-import org.brooth.jeta.pubsub.PublisherController;
-import org.brooth.jeta.pubsub.SubscriberController;
-import org.brooth.jeta.pubsub.SubscriptionHandler;
 import org.brooth.jeta.util.ImplementationController;
 import org.brooth.jeta.util.MultitonController;
 import org.brooth.jeta.util.MultitonMetacode;
@@ -52,8 +53,8 @@ public class MetaHelper {
     private static MetaHelper instance;
 
     private final Metasitory metasitory;
-
     private final MetaEntityFactory metaEntityFactory;
+    private final EventBus bus;
 
     public static MetaHelper getInstance() {
         if (instance == null)
@@ -64,6 +65,7 @@ public class MetaHelper {
     private MetaHelper(String metaPackage) {
         metasitory = new MapMetasitory(metaPackage);
         metaEntityFactory = new MetaEntityFactory(metasitory);
+        bus = new BaseEventBus();
     }
 
     public Metasitory getMetasitory() {
@@ -82,12 +84,12 @@ public class MetaHelper {
         return getImplementationController(of).getImplementation();
     }
 
-    public static void createPublisher(Object master) {
-        new PublisherController<>(getInstance().metasitory, master).createPublisher();
+    public static EventBus getEventBus() {
+        return getInstance().bus;
     }
 
     public static SubscriptionHandler registerSubscriber(Object master) {
-        return new SubscriberController<>(getInstance().metasitory, master).registerSubscriber();
+        return new SubscriberController<>(getInstance().metasitory, master).registerSubscriber(getEventBus());
     }
 
     public static void createObservable(Object master) {

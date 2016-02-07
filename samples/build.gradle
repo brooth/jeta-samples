@@ -21,7 +21,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.4'
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.5'
     }
 }
 
@@ -46,10 +46,10 @@ compileJava {
 dependencies {
     apt project(':my-processor')
     apt project(':my-processor').sourceSets.apt.output
-    apt 'org.brooth.jeta:jeta-apt:0.2-alpha'
+    apt 'org.brooth.jeta:jeta-apt:0.1-beta'
 
     compile project(':my-processor')
-    compile 'org.brooth.jeta:jeta:0.2-alpha'
+    compile 'org.brooth.jeta:jeta:0.1-beta'
 }
  
 task runas(type:JavaExec) {
