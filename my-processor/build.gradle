@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.brooth.jeta:jeta-apt:0.2-beta'
+    compile 'org.brooth.jeta:jeta-apt:0.3-beta'
 }
 
 task aptJar(type: Jar) {
