@@ -18,9 +18,9 @@ package org.brooth.jeta.samples.meta;
 
 import org.brooth.jeta.meta.Meta;
 import org.brooth.jeta.samples.MetaHelper;
-import org.brooth.jeta.util.Factory;
-import org.brooth.jeta.util.Lazy;
-import org.brooth.jeta.util.Provider;
+import org.brooth.jeta.Factory;
+import org.brooth.jeta.Lazy;
+import org.brooth.jeta.Provider;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)

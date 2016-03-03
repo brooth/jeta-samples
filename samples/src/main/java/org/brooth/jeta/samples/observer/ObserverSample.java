@@ -16,7 +16,7 @@
 
 package org.brooth.jeta.samples.observer;
 
-import org.brooth.jeta.observer.Observer;
+import org.brooth.jeta.observer.Observe;
 import org.brooth.jeta.observer.ObserverHandler;
 import org.brooth.jeta.observer.Observers;
 import org.brooth.jeta.observer.Subject;
@@ -67,7 +67,7 @@ public class ObserverSample {
             request.start();
         }
 
-        @Observer(AsyncRequest.class)
+        @Observe(AsyncRequest.class)
         protected void onCompleteEvent(AsyncRequest.CompleteEvent e) {
             System.out.print(String.format("request complete: [%s] %s",
                 Thread.currentThread().getName(), e.getStatus()));

@@ -19,7 +19,7 @@ package org.brooth.jeta.samples.collector;
 import org.brooth.jeta.collector.ObjectCollector;
 import org.brooth.jeta.collector.TypeCollector;
 import org.brooth.jeta.samples.MetaHelper;
-import org.brooth.jeta.util.Provider;
+import org.brooth.jeta.Provider;
 
 import java.util.List;
 

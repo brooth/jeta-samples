@@ -38,7 +38,7 @@ import org.brooth.jeta.proxy.ProxyController;
 import org.brooth.jeta.util.ImplementationController;
 import org.brooth.jeta.util.MultitonController;
 import org.brooth.jeta.util.MultitonMetacode;
-import org.brooth.jeta.util.Provider;
+import org.brooth.jeta.Provider;
 import org.brooth.jeta.util.SingletonController;
 import org.brooth.jeta.util.SingletonMetacode;
 import org.brooth.jeta.validate.ValidationController;
@@ -121,7 +121,7 @@ public class MetaHelper {
     }
 
     public static void createLogger(Object master, NamedLoggerProvider<?> provider) {
-        new LogController(getInstance().metasitory, master).createLogger(provider);
+        new LogController(getInstance().metasitory, master).createLoggers(provider);
     }
 
     public static <M> SingletonMetacode<M> getSingleton(Class<M> masterClass) {
