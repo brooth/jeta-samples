@@ -49,8 +49,8 @@ dependencies {
     apt project(':my-processor').sourceSets.apt.output
     compile project(':my-processor')
 
-    apt 'org.brooth.jeta:jeta-apt:0.3-beta'
-    compile 'org.brooth.jeta:jeta:0.3-beta'
+    apt 'org.brooth.jeta:jeta-apt:1.0'
+    compile 'org.brooth.jeta:jeta:1.0'
 }
  
 task runas(type:JavaExec) {

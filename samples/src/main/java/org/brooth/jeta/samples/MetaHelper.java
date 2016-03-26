@@ -25,16 +25,18 @@ import org.brooth.jeta.eventbus.BaseEventBus;
 import org.brooth.jeta.eventbus.EventBus;
 import org.brooth.jeta.eventbus.SubscriberController;
 import org.brooth.jeta.eventbus.SubscriptionHandler;
+import org.brooth.jeta.inject.InjectController;
+import org.brooth.jeta.inject.MetaScope;
+import org.brooth.jeta.inject.MetaScopeController;
 import org.brooth.jeta.log.LogController;
 import org.brooth.jeta.log.NamedLoggerProvider;
-import org.brooth.jeta.meta.MetaController;
-import org.brooth.jeta.meta.MetaEntityFactory;
 import org.brooth.jeta.metasitory.MapMetasitory;
 import org.brooth.jeta.metasitory.Metasitory;
 import org.brooth.jeta.observer.ObservableController;
 import org.brooth.jeta.observer.ObserverController;
 import org.brooth.jeta.observer.ObserverHandler;
 import org.brooth.jeta.proxy.ProxyController;
+import org.brooth.jeta.samples.inject.SampleScope;
 import org.brooth.jeta.util.ImplementationController;
 import org.brooth.jeta.util.MultitonController;
 import org.brooth.jeta.util.MultitonMetacode;
@@ -53,8 +55,8 @@ public class MetaHelper {
     private static MetaHelper instance;
 
     private final Metasitory metasitory;
-    private final MetaEntityFactory metaEntityFactory;
     private final EventBus bus;
+    private MetaScope<SampleScope> scope;
 
     public static MetaHelper getInstance() {
         if (instance == null)
@@ -64,7 +66,7 @@ public class MetaHelper {
 
     private MetaHelper(String metaPackage) {
         metasitory = new MapMetasitory(metaPackage);
-        metaEntityFactory = new MetaEntityFactory(metasitory);
+        scope = new MetaScopeController<>(metasitory, new SampleScope()).get();
         bus = new BaseEventBus();
     }
 
@@ -73,7 +75,7 @@ public class MetaHelper {
     }
 
     public static void injectMeta(Object master) {
-        new MetaController(getInstance().metasitory, master).injectMeta(getInstance().metaEntityFactory);
+        new InjectController(getInstance().metasitory, master).inject(getInstance().scope);
     }
 
     public static <I> ImplementationController<I> getImplementationController(Class<I> of) {

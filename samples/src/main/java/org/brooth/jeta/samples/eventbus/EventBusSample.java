@@ -37,7 +37,7 @@ public class EventBusSample {
         }
     }
 
-    @MetaFilter(emitExpression = "$m.MIN_ALARM_ID <= $e.getId()")
+    @MetaFilter(emitExpression = "$m.MIN_ALARM_ID <= $e.id()")
     interface MinAlarmIdFilter extends Filter { }
 
     /**
@@ -52,14 +52,14 @@ public class EventBusSample {
             handler = MetaHelper.registerSubscriber(this);
         }
 
-        @Subscribe(ids = 1)
+        @Subscribe(id = 1)
         protected void onInfo(AlertMessage alert) {
-            System.out.println("Info: '" + alert.getTopic() + "'");
+            System.out.println("Info: '" + alert.topic() + "'");
         }
 
         @Subscribe(filters = MinAlarmIdFilter.class)
         protected void onAlarm(AlertMessage alert) {
-            System.out.println("Error: '" + alert.getTopic() + "'. I quit!");
+            System.out.println("Error: '" + alert.topic() + "'. I quit!");
             quit();
         }
 

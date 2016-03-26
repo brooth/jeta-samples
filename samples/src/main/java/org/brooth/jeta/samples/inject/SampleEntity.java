@@ -14,9 +14,9 @@
  *  limitations under the License.
  */
 
-package org.brooth.jeta.samples.meta;
+package org.brooth.jeta.samples.inject;
 
-import org.brooth.jeta.meta.MetaEntity;
+import org.brooth.jeta.inject.MetaEntity;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)

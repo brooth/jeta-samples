@@ -14,9 +14,9 @@
  *  limitations under the License.
  */
 
-package org.brooth.jeta.samples.meta;
+package org.brooth.jeta.samples.inject;
 
-import org.brooth.jeta.meta.Meta;
+import org.brooth.jeta.inject.Inject;
 import org.brooth.jeta.samples.MetaHelper;
 import org.brooth.jeta.Factory;
 import org.brooth.jeta.Lazy;
@@ -25,16 +25,16 @@ import org.brooth.jeta.Provider;
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-public class MetaEntitySample {
-    @Meta
+public class InjectSample {
+    @Inject
     SampleEntity entity;
-    @Meta
+    @Inject
     Class<? extends SampleEntity> entityClass;
-    @Meta
+    @Inject
     Lazy<SampleEntity> sampleEntityLazy;
-    @Meta
+    @Inject
     Provider<SampleEntity> sampleEntityProvider;
-    @Meta
+    @Inject
     MetaFactory factory;
 
     @Factory
@@ -60,6 +60,6 @@ public class MetaEntitySample {
     }
 
     public static void main(String[] args) {
-        new MetaEntitySample().testMeta();
+        new InjectSample().testMeta();
     }
 }
