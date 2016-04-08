@@ -30,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.brooth.jeta:jeta-apt:1.0'
+    compile 'org.brooth.jeta:jeta-apt:1.1'
 }
 
 task aptJar(type: Jar) {
