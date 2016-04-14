@@ -18,4 +18,4 @@ rootProject.name = 'jeta-samples'
 
 include ':samples'
 include ':my-processor'
-
+include ':my-metasitory'

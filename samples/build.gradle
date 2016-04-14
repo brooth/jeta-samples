@@ -42,6 +42,8 @@ compileJava {
 }
 
 dependencies {
+    // apt project(':my-metasitory')
+
     // setup custom processor
     apt project(':my-processor')
     apt project(':my-processor').sourceSets.apt.output
