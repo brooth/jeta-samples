@@ -1,7 +1,6 @@
 # jeta-samples
 
-If your are not familiar with `Jeta` it's recommended to read [README][jeta] 
-[jeta]: https://github.com/brooth/jeta
+If your are not familiar with `Jeta`, please, follow [jeta.brooth.org](http://jeta.brooth.org) first.
 
 
-To generate metacode for the samples, run `assamble` gradle command.
+####To generate metacode for the samples, run `assamble` gradle command.
