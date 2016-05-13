@@ -5,7 +5,7 @@ How to create custom processors, step-by-step tutorial
 
 Let's create a simple `gradle` project with one module `app` and a single class `SayHelloApp`. This class writes `Hello, World!` to standard output.
 
-![SayHelloApp](http://i.imgur.com/abvtUtm.png?1)
+![SayHelloApp](http://i.imgur.com/pMyJ0Cx.png)
 
 In this tutorial we'll create `Hello` annotation and will be providing `Hello, Jeta!` string to fields with this annotation.
 
@@ -13,13 +13,13 @@ In this tutorial we'll create `Hello` annotation and will be providing `Hello, J
 
 Now we need a module which will be accessible in `app` module and in `apt` module which we'll create shortly. In `common` module we'll create two classes - `Hello` annotation and `HelloMetacode` interface:
 
-![common module](http://i.imgur.com/K2aQsgg.png)
+![common module](http://i.imgur.com/Yxn9bZn.png)
 
 ### Step 3: `apt` module
 
 `apt` - is a module in which we create all the required for code generation classes. For this tutorial we only need to create a processor that handles our `Hello` annotation.
 
-![apt module](http://i.imgur.com/HHqI3AV.png?1)
+![apt module](http://i.imgur.com/NWTCdq2.png)
 
 Note that this module depends on `common` so we used `Hello` annotation as a parameter for super constructor. By doing that we're saying to `Jeta` that we need all elements annotated with this annotation. It also depends on `jeta-apt` in order to be used by `Jeta` for code generating.
 
@@ -60,6 +60,8 @@ for (Element element : roundContext.elements()) {
 Here is the complete `SayHelloProcessor` listing:
 
 ```java
+package org.brooth.jeta.samples.apt;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -127,4 +129,4 @@ public class SayHelloApp {
 
  If there no problems so far we'll see `SayHelloApp_Metacode` file under `app/build` directory:
 
- ![SayHelloApp_Metacode](http://i.imgur.com/CLVTjFB.png)
+ ![SayHelloApp_Metacode](http://i.imgur.com/29RFLyL.png)
