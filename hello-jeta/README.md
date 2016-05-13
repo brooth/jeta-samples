@@ -1,8 +1,16 @@
-How create custom processors, step-by-step tutorial
+How to create custom processors, step-by-step tutorial
 ------
 
-### Step 1
+### Step 1: `Hello, World` project
 
-Create a simple `gradle` project with one module `app` and single class `SayHelloApp`. This class writes `Hello, World!` to standard output.
+Let's create a simple `gradle` project with one module `app` and single class `SayHelloApp`. This class writes `Hello, World!` to standard output.
 
-![SayHelloApp](http://screenshot.haulmont.com/4624cc854a81f002b8f310662a33.png)
+![SayHelloApp](http://i.imgur.com/abvtUtm.png?1)
+
+In this tutorial we'll create `Hello` annotation and will be providing `Hello, Jeta!` string to the fields annotated with this annotation.
+
+### Step 2: `common` module
+
+Now we need a module which will be accessable in `app` module and in `apt` module which we'll create shortly. In `common` module we'll create two classes - `Hello` annotation and `HelloMetacode` interface:
+
+![common module](http://i.imgur.com/K2aQsgg.png)
