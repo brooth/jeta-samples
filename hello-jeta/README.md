@@ -127,4 +127,4 @@ public class SayHelloApp {
 
  If there no problems so far we'll see `SayHelloApp_Metacode` file under `app/build` directory:
 
- ![SayHelloApp_Metacode](http://i.imgur.com/XLK3QSY.png)
+ ![SayHelloApp_Metacode](http://i.imgur.com/CLVTjFB.png)
