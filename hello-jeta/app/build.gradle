@@ -22,6 +22,10 @@ repositories {
     jcenter()
 }
 
+compileJava {
+    options.sourcepath = files('src/main/java')
+}
+
 dependencies {
     apt project(':apt')
     compile project(':common')

@@ -1,9 +1,12 @@
+package org.brooth.jeta.samples;
+
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
 public class SayHelloApp {
 
-    String text = "Hello, World!";
+    @Hello
+    String text;
 
     public void sayHello() {
         System.out.print(text);

@@ -1,3 +1,5 @@
+package org.brooth.jeta.samples.apt;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -5,6 +7,8 @@ import com.squareup.javapoet.TypeSpec;
 import org.brooth.jeta.apt.MetacodeContext;
 import org.brooth.jeta.apt.RoundContext;
 import org.brooth.jeta.apt.processors.AbstractProcessor;
+import org.brooth.jeta.samples.Hello;
+import org.brooth.jeta.samples.HelloMetacode;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
@@ -25,7 +29,7 @@ public class SayHelloProcessor extends AbstractProcessor {
         builder.addSuperinterface(ParameterizedTypeName.get(
                 ClassName.get(HelloMetacode.class), masterClassName));
 
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("setHello")
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)

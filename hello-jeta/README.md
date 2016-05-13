@@ -20,6 +20,7 @@ Now we need a module which will be accessible in `app` module and in `apt` modul
 `apt` - is a module in which we create all the required for code generation classes. For this tutorial we only need to create a processor that handles our `Hello` annotation.
 
 ![apt module](http://i.imgur.com/HHqI3AV.png?1)
+
 Note that this module depends on `common` so we used `Hello` annotation as a parameter for super constructor. By doing that we're saying to `Jeta` that we need all elements annotated with this annotation. It also depends on `jeta-apt` in order to be used by `Jeta` for code generating.
 
 ### Step 4: Processor
@@ -40,7 +41,7 @@ builder.addSuperinterface(ParameterizedTypeName.get(
 Secondly, implement `HelloMetacode` by creating `void setHello(M master)` method:
 
 ```java
-MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
+MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("setHello")
     .addAnnotation(Override.class)
     .addModifiers(Modifier.PUBLIC)
     .returns(void.class)
@@ -83,7 +84,7 @@ public class SayHelloProcessor extends AbstractProcessor {
         builder.addSuperinterface(ParameterizedTypeName.get(
                 ClassName.get(HelloMetacode.class), masterClassName));
 
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("setHello")
                 .addAnnotation(Override.class)
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
@@ -100,4 +101,6 @@ public class SayHelloProcessor extends AbstractProcessor {
 }
 ```
 
+### Step 5: Usage
 
+All the required classes are created so we ready to modify our app:

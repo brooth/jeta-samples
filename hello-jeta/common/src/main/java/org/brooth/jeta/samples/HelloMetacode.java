@@ -1,3 +1,5 @@
+package org.brooth.jeta.samples;
+
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
