@@ -213,7 +213,7 @@ public class SayHelloApp {
 }
 ```
 
-Finally, we can run `main` method of `SayHelloApp`. In the console we'll see
+Finally, we can run `SayHelloApp`. In the console we'll see
 
 ```
 Hello, Jeta
