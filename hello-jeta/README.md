@@ -101,6 +101,30 @@ public class SayHelloProcessor extends AbstractProcessor {
 }
 ```
 
-### Step 5: Usage
+### Step 5: Metacode
 
-All the required classes are created so we ready to modify our app:
+All the required for code generating classes are created and we're ready to try. But first let's add `jeta.properties` file in order to config `Jeta`. You can find more details about this file [on this page](http://jeta.brooth.org/guide/config.html). The file should be located in the root package. For out tutorial its content would be:
+
+```properties
+metasitory.package=org.brooth.jeta.samples
+processors.add=org.brooth.jeta.samples.apt.SayHelloProcessor
+```
+
+Next, let's modify `SayHelloApp`, instead of initializing `text` field we'll put `Hello` annotation on it:
+
+ ```java
+public class SayHelloApp {
+     @Hello
+     String text;
+}
+ ```
+
+ Now we ready to give it a try. so run this `gradle` command in your console:
+
+ ```
+ gradlew assemble
+ ```
+
+ If there no problems so far we'll see `SayHelloApp_Metacode` file under `app/build` directory:
+
+ ![SayHelloApp_Metacode](http://i.imgur.com/XLK3QSY.png)
