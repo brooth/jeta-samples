@@ -19,7 +19,7 @@ Now we need a module which will be accessible in `app` module and in `apt` modul
 
 `apt` - is a module in which we create all the required for code generation classes. For this tutorial we only need to create a processor that handles our `Hello` annotation.
 
-![apt module](http://i.imgur.com/YbAq9Zw.png)
+![apt module](http://i.imgur.com/HHqI3AV.png?1)
 Note that this module depends on `common` so we used `Hello` annotation as a parameter for super constructor. By doing that we're saying to `Jeta` that we need all elements annotated with this annotation. It also depends on `jeta-apt` in order to be used by `Jeta` for code generating.
 
 ### Step 4: Processor
