@@ -131,7 +131,7 @@ public class SayHelloApp {
 
  ![SayHelloApp_Metacode](http://i.imgur.com/29RFLyL.png)
 
- ### Step 5: Controller
+ ### Step 6: Controller
 
  [Controllers](http://jeta.brooth.org/guide/at-runtime.html) are the classes that applies metacode to the [masters](http://jeta.brooth.org/guide/at-runtime.html). Let's create one  for `HelloMetacode` in `app` module:
 
@@ -154,7 +154,7 @@ public class SayHelloApp {
  }
  ```
 
-### Step 6: MetaHelper
+### Step 7: MetaHelper
 
 `MetaHelper` is a simple static-helper class. You shouldn't use it in your project if you are not comfortable with static helpers. You can read more details about this class on [this page](http://jeta.brooth.org/guide/meta-helper.html).
 
@@ -187,7 +187,7 @@ public class MetaHelper {
 }
 ```
 
-### Step 7: Usage
+### Step 8: Usage
 
 The last step - we need to invoke our `MetaHelper`. Here is the complete listing of `SayHelloApp`:
 
