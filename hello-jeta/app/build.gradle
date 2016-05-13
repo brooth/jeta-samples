@@ -13,6 +13,14 @@ buildscript {
 }
 
 apply plugin: 'net.ltgt.apt'
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
 
 dependencies {
     apt project(':apt')

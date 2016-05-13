@@ -12,14 +12,3 @@ repositories {
 dependencies {
 
 }
-
-allprojects {
-    apply plugin: 'java'
-
-    sourceCompatibility = 1.7
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-}
