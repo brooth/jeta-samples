@@ -30,66 +30,74 @@ Note that `Jeta` uses `JavaPoet` to create java source code. It's really great f
 
 First, we need our [metacode](http://jeta.brooth.org/guide/at-runtime.html) to implement `HelloMetacode`. To do this we'll add super interface to the `builder`:
 
-    MetacodeContext context = roundContext.metacodeContext();
-    ClassName masterClassName = ClassName.get(context.masterElement());
-    builder.addSuperinterface(ParameterizedTypeName.get(
-            ClassName.get(HelloMetacode.class), masterClassName));
+```java
+MetacodeContext context = roundContext.metacodeContext();
+ClassName masterClassName = ClassName.get(context.masterElement());
+builder.addSuperinterface(ParameterizedTypeName.get(
+        ClassName.get(HelloMetacode.class), masterClassName));
+```
 
 Secondly, implement `HelloMetacode` by creating `void setHello(M master)` method:
 
-    MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
-        .addAnnotation(Override.class)
-        .addModifiers(Modifier.PUBLIC)
-        .returns(void.class)
-        .addParameter(masterClassName, "master");
+```java
+MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
+    .addAnnotation(Override.class)
+    .addModifiers(Modifier.PUBLIC)
+    .returns(void.class)
+    .addParameter(masterClassName, "master");
+```
 
 Finally, we'll handle all elements annotated with `Hello` that `Jeta` passes in `process` method via `roundContext` parameter:
 
-    for (Element element : roundContext.elements()) {
-        String fieldName = element.getSimpleName().toString();
-        methodBuilder.addStatement("master.$L = \"Hello, Jeta\"", fieldName);
-    }
+```java
+for (Element element : roundContext.elements()) {
+    String fieldName = element.getSimpleName().toString();
+    methodBuilder.addStatement("master.$L = \"Hello, Jeta\"", fieldName);
+}
+```
 
 Here is the complete `SayHelloProcessor` listing:
 
-    import com.squareup.javapoet.ClassName;
-    import com.squareup.javapoet.MethodSpec;
-    import com.squareup.javapoet.ParameterizedTypeName;
-    import com.squareup.javapoet.TypeSpec;
-    import org.brooth.jeta.apt.MetacodeContext;
-    import org.brooth.jeta.apt.RoundContext;
-    import org.brooth.jeta.apt.processors.AbstractProcessor;
+```java
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeSpec;
+import org.brooth.jeta.apt.MetacodeContext;
+import org.brooth.jeta.apt.RoundContext;
+import org.brooth.jeta.apt.processors.AbstractProcessor;
 
-    import javax.lang.model.element.Element;
-    import javax.lang.model.element.Modifier;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 
-    public class SayHelloProcessor extends AbstractProcessor {
+public class SayHelloProcessor extends AbstractProcessor {
 
-        public SayHelloProcessor() {
-            super(Hello.class);
-        }
-
-        @Override
-        public boolean process(TypeSpec.Builder builder, RoundContext roundContext) {
-            MetacodeContext context = roundContext.metacodeContext();
-            ClassName masterClassName = ClassName.get(context.masterElement());
-            builder.addSuperinterface(ParameterizedTypeName.get(
-                    ClassName.get(HelloMetacode.class), masterClassName));
-
-            MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
-                    .addAnnotation(Override.class)
-                    .addModifiers(Modifier.PUBLIC)
-                    .returns(void.class)
-                    .addParameter(masterClassName, "master");
-
-            for (Element element : roundContext.elements()) {
-                String fieldName = element.getSimpleName().toString();
-                methodBuilder.addStatement("master.$L = \"Hello, Jeta\"", fieldName);
-            }
-
-            builder.addMethod(methodBuilder.build());
-            return false;
-        }
+    public SayHelloProcessor() {
+        super(Hello.class);
     }
+
+    @Override
+    public boolean process(TypeSpec.Builder builder, RoundContext roundContext) {
+        MetacodeContext context = roundContext.metacodeContext();
+        ClassName masterClassName = ClassName.get(context.masterElement());
+        builder.addSuperinterface(ParameterizedTypeName.get(
+                ClassName.get(HelloMetacode.class), masterClassName));
+
+        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("applyHello")
+                .addAnnotation(Override.class)
+                .addModifiers(Modifier.PUBLIC)
+                .returns(void.class)
+                .addParameter(masterClassName, "master");
+
+        for (Element element : roundContext.elements()) {
+            String fieldName = element.getSimpleName().toString();
+            methodBuilder.addStatement("master.$L = \"Hello, Jeta\"", fieldName);
+        }
+
+        builder.addMethod(methodBuilder.build());
+        return false;
+    }
+}
+```
 
 
