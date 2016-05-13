@@ -8,6 +8,10 @@ public class SayHelloApp {
     @Hello
     String text;
 
+    public SayHelloApp() {
+        MetaHelper.setHello(this);
+    }
+
     public void sayHello() {
         System.out.print(text);
     }

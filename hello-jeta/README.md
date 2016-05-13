@@ -3,31 +3,31 @@ How to create custom processors, step-by-step tutorial
 
 ### Step 1: `Hello, World` project
 
-Let's create a simple `gradle` project with one module `app` and a single class `SayHelloApp`. This class writes `Hello, World!` to standard output.
+For this tutorial let's create a simple `gradle` project with one module `app` and with a single class `SayHelloApp`. This class writes `Hello, World!` to standard output.
 
 ![SayHelloApp](http://i.imgur.com/pMyJ0Cx.png)
 
-In this tutorial we'll create `Hello` annotation and will be providing `Hello, Jeta!` string to fields with this annotation.
+For the illustration we'll create `Hello` annotation that sets `Hello, Jeta!` string to the annotated fields.
 
 ### Step 2: `common` module
 
-Now we need a module which will be accessible in `app` module and in `apt` module which we'll create shortly. In `common` module we'll create two classes - `Hello` annotation and `HelloMetacode` interface:
+First, we need a module that will be accessible in `app` module and in `apt` module which we'll create shortly. In `common` module we'll create two classes - `Hello` annotation and `HelloMetacode` interface:
 
 ![common module](http://i.imgur.com/Yxn9bZn.png)
 
 ### Step 3: `apt` module
 
-`apt` - is a module in which we create all the required for code generation classes. For this tutorial we only need to create a processor that handles our `Hello` annotation.
+`apt` - is a module in which we create all the required for code generation classes. For this tutorial we only need a processor that handles our `Hello` annotation.
 
 ![apt module](http://i.imgur.com/NWTCdq2.png)
 
-Note that this module depends on `common` so we used `Hello` annotation as a parameter for super constructor. By doing that we're saying to `Jeta` that we need all elements annotated with this annotation. It also depends on `jeta-apt` in order to be used by `Jeta` for code generating.
+Note that this module depends on `common` so we used `Hello` annotation as a parameter for super constructor. By doing that we're saying to `Jeta` that we need all elements annotated with given type. The module also depends on `jeta-apt` in order to get access to `Jeta` classes.
 
 ### Step 4: Processor
 
-We created `SayHelloProcessor` but now it does nothing. Let's put some logic in it. The idea here is to generate java code that will be setting `Hello, Jeta` string to the fields annotated with `Hello`.
+We created `SayHelloProcessor` but now it does nothing. Let's put some logic in it. The idea here is to generate java code that sets `Hello, Jeta` string to the fields annotated with `Hello`.
 
-Note that `Jeta` uses `JavaPoet` to create java source code. It's really great framework by `Square`.  Please, check it out [here](https://github.com/square/javapoet).
+Note that `Jeta` uses `JavaPoet` to create java source code. It's really great framework by `Square`.  Please, check it out on [GitHub](https://github.com/square/javapoet).
 
 First, we need our [metacode](http://jeta.brooth.org/guide/at-runtime.html) to implement `HelloMetacode`. To do this we'll add super interface to the `builder`:
 
@@ -38,7 +38,7 @@ builder.addSuperinterface(ParameterizedTypeName.get(
         ClassName.get(HelloMetacode.class), masterClassName));
 ```
 
-Secondly, implement `HelloMetacode` by creating `void setHello(M master)` method:
+Next, implement `HelloMetacode` by creating `void setHello(M master)` method:
 
 ```java
 MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("setHello")
@@ -48,7 +48,7 @@ MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("setHello")
     .addParameter(masterClassName, "master");
 ```
 
-Finally, we'll handle all elements annotated with `Hello` that `Jeta` passes in `process` method via `roundContext` parameter:
+Finally, we'll handle all elements annotated with `Hello`, that `Jeta` passes in `process` method via `roundContext` parameter:
 
 ```java
 for (Element element : roundContext.elements()) {
@@ -105,14 +105,14 @@ public class SayHelloProcessor extends AbstractProcessor {
 
 ### Step 5: Metacode
 
-All the required for code generating classes are created and we're ready to try. But first let's add `jeta.properties` file in order to config `Jeta`. You can find more details about this file [on this page](http://jeta.brooth.org/guide/config.html). The file should be located in the root package. For out tutorial its content would be:
+All the required for code generating classes are created and we're ready to try. But first we need to add `jeta.properties` file in order to config `Jeta`. You can find more details about this file [on this page](http://jeta.brooth.org/guide/config.html). The file should be located in the root package. For out tutorial its content would be:
 
 ```properties
 metasitory.package=org.brooth.jeta.samples
 processors.add=org.brooth.jeta.samples.apt.SayHelloProcessor
 ```
 
-Next, let's modify `SayHelloApp`, instead of initializing `text` field we'll put `Hello` annotation on it:
+Next, modify `SayHelloApp`. Instead of initializing `text` field we'll put `Hello` annotation on it:
 
  ```java
 public class SayHelloApp {
@@ -121,12 +121,102 @@ public class SayHelloApp {
 }
  ```
 
- Now we ready to give it a try. so run this `gradle` command in your console:
+ Now we're ready to generate metacode. Run next command in your console:
 
  ```
- gradlew assemble
+ ./gradlew assemble
  ```
 
- If there no problems so far we'll see `SayHelloApp_Metacode` file under `app/build` directory:
+ If there is no problems so far, we'll see `SayHelloApp_Metacode` file under `app/build` directory:
 
  ![SayHelloApp_Metacode](http://i.imgur.com/29RFLyL.png)
+
+ ### Step 5: Controller
+
+ [Controllers](http://jeta.brooth.org/guide/at-runtime.html) are the classes that applies metacode to the [masters](http://jeta.brooth.org/guide/at-runtime.html). Let's create one  for `HelloMetacode` in `app` module:
+
+ ```java
+ package org.brooth.jeta.samples;
+
+ import org.brooth.jeta.MasterController;
+ import org.brooth.jeta.metasitory.Metasitory;
+
+ public class SayHelloController<M> extends MasterController<M, HelloMetacode<M>> {
+
+     public SayHelloController(Metasitory metasitory, M master) {
+         super(metasitory, master, Hello.class, false);
+     }
+
+     public void setHello() {
+         for (HelloMetacode<M> metacode : metacodes)
+             metacode.setHello(master);
+     }
+ }
+ ```
+
+### Step 6: MetaHelper
+
+`MetaHelper` is a simple static-helper class. You shouldn't use it in your project if you are not comfortable with static helpers. You can read more details about this class on [this page](http://jeta.brooth.org/guide/meta-helper.html).
+
+Anyway, let's create `MetaHelper` in `app` module:
+
+```java
+package org.brooth.jeta.samples;
+
+import org.brooth.jeta.metasitory.MapMetasitory;
+import org.brooth.jeta.metasitory.Metasitory;
+
+public class MetaHelper {
+
+    private static MetaHelper instance;
+    private final Metasitory metasitory;
+
+    public static MetaHelper getInstance() {
+        if (instance == null)
+            instance = new MetaHelper("org.brooth.jeta.samples");
+        return instance;
+    }
+
+    private MetaHelper(String metaPackage) {
+        metasitory = new MapMetasitory(metaPackage);
+    }
+
+    public static void setHello(Object master) {
+        new SayHelloController<>(getInstance().metasitory, master).setHello();
+    }
+}
+```
+
+### Step 7: Usage
+
+Last step we need to do is to invoke out `MetaHelper`. Here is the complete listing of `SayHelloApp`:
+
+```java
+package org.brooth.jeta.samples;
+
+public class SayHelloApp {
+
+    @Hello
+    String text;
+
+    public SayHelloApp() {
+        MetaHelper.setHello(this);
+    }
+
+    public void sayHello() {
+        System.out.print(text);
+    }
+
+    public static void main(String[] args) {
+        new SayHelloApp().sayHello();
+    }
+}
+```
+
+Finally, we can run `main` method of `SayHelloApp`. In the console we'll see
+
+```
+Hello, Jeta
+```
+
+Happy code-generating! :)
