@@ -1,0 +1,16 @@
+.vimrc
+.vimsession
+.project
+.classpath
+.factorypath
+*.swp
+*.iml
+*.ipr
+*.iws
+
+build/
+bin/
+.apt_generated/
+.idea/
+.gradle/
+.settings/
