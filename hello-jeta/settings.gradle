@@ -1,4 +1,6 @@
 rootProject.name = 'hello-jeta'
 
 include 'app'
+include 'apt'
+include 'common'
 

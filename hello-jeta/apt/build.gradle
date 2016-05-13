@@ -1,0 +1,7 @@
+group 'org.brooth.jeta-samples'
+version '1.0'
+
+dependencies {
+    compile project(':common')
+    compile 'org.brooth.jeta:jeta-apt:+'
+}
