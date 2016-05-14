@@ -120,6 +120,45 @@ public class SayHelloApp {
      String text;
 }
  ```
+ 
+ And `build.gradle`:
+ 
+ ```groovy
+group 'org.brooth.jeta-samples'
+version '1.0'
+
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.5'
+    }
+}
+
+apply plugin: 'net.ltgt.apt'
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+compileJava {
+    options.sourcepath = files('src/main/java')
+}
+
+dependencies {
+    apt project(':apt')
+    compile project(':common')
+    compile 'org.brooth.jeta:jeta:+'
+}
+```
+ 
 
  Now we're ready to generate metacode. Run next command in your console:
 
@@ -187,7 +226,7 @@ public class MetaHelper {
 }
 ```
 
-Note that we must pass the same (`"org.brooth.jeta.samples"`) package that we specified as `metasitory.package` in `jeta.properties`.
+Note that we must pass to `MapMetasitory` the same package (`"org.brooth.jeta.samples"`) that we specified as `metasitory.package` in `jeta.properties`.
 
 
 ### Step 8: Usage
