@@ -131,9 +131,9 @@ public class SayHelloApp {
 
  ![SayHelloApp_Metacode](http://i.imgur.com/29RFLyL.png)
 
- ### Step 6: Controller
+### Step 6: Controller
 
- [Controllers](http://jeta.brooth.org/guide/at-runtime.html) are the classes that applies metacode to the [masters](http://jeta.brooth.org/guide/at-runtime.html). Let's create one  for `HelloMetacode` in `app` module:
+ [Controllers](http://jeta.brooth.org/guide/at-runtime.html) are the classes that apply metacode to the [masters](http://jeta.brooth.org/guide/at-runtime.html). Let's create one  for `HelloMetacode` in `app` module:
 
  ```java
  package org.brooth.jeta.samples;
