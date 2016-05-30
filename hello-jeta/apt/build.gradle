@@ -1,0 +1,15 @@
+group 'org.brooth.jeta-samples'
+version '1.0'
+
+apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.brooth.jeta:jeta-apt:+:noapt'
+    compile project(':common')
+}

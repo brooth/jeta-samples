@@ -28,6 +28,9 @@ compileJava {
 
 dependencies {
     apt project(':apt')
+    apt 'org.brooth.jeta:jeta-apt:+'
     compile project(':common')
     compile 'org.brooth.jeta:jeta:+'
 }
+
+

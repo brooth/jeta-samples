@@ -1,0 +1,4 @@
+group 'org.brooth.jeta-samples'
+version '1.0'
+
+apply plugin: 'java'
