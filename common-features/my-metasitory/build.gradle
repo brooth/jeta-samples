@@ -22,5 +22,5 @@ repositories {
 }
 
 dependencies {
-    compile 'org.brooth.jeta:jeta-apt:1.1'
+    compile 'org.brooth.jeta:jeta-apt:1.4'
 }
