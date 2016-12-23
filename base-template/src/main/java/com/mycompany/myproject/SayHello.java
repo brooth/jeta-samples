@@ -2,10 +2,6 @@ package com.mycompany.myproject;
 
 import org.brooth.jeta.log.Log;
 
-/**
- * @author khalidov
- * @version $Id$
- */
 public class SayHello {
 
     @Log

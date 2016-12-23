@@ -1,9 +1,5 @@
 package com.mycompany.myproject;
 
-/**
- * @author khalidov
- * @version $Id$
- */
 public class DumbLogger {
 
     private final String name;

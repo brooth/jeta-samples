@@ -26,10 +26,6 @@ import org.brooth.jeta.validate.ValidationException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-/**
- * @author khalidov
- * @version $Id$
- */
 public class MetaHelper {
 
     public static MetaHelper instance = new MetaHelper();
