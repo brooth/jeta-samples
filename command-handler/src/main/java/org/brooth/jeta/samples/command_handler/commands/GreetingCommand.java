@@ -16,12 +16,12 @@
 package org.brooth.jeta.samples.command_handler.commands;
 
 import org.brooth.jeta.samples.command_handler.CommandHandler;
-import org.brooth.jeta.samples.command_handler.Handler;
+import org.brooth.jeta.samples.command_handler.Command;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-@Handler("greet")
+@Command("greet")
 public class GreetingCommand implements CommandHandler {
     @Override
     public void handle() {

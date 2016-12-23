@@ -16,7 +16,7 @@
 package org.brooth.jeta.samples.command_handler.commands;
 
 import org.brooth.jeta.samples.command_handler.CommandHandler;
-import org.brooth.jeta.samples.command_handler.Handler;
+import org.brooth.jeta.samples.command_handler.Command;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +24,7 @@ import java.util.Date;
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-@Handler("time")
+@Command("time")
 public class TimeCommand implements CommandHandler {
     @Override
     public void handle() {

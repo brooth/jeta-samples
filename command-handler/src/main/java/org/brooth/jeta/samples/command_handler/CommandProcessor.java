@@ -33,22 +33,22 @@ import java.util.Scanner;
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-@TypeCollector(Handler.class)
-public class CommandController {
+@TypeCollector(Command.class)
+public class CommandProcessor {
     private Map<String, CommandHandler> handlers = new HashMap<>();
 
-    public CommandController() {
+    public CommandProcessor() {
         //parseHandlers();
         collectHandlers();
     }
 
     private void collectHandlers() {
         Metasitory metasitory = new MapMetasitory("");
-        List<Class<?>> types = new TypeCollectorController(metasitory, getClass()).getTypes(Handler.class);
+        List<Class<?>> types = new TypeCollectorController(metasitory, getClass()).getTypes(Command.class);
         for (Class handlerClass : types) {
             try {
-                Handler handlerAnnotation = (Handler) handlerClass.getAnnotation(Handler.class);
-                handlers.put(handlerAnnotation.value(), (CommandHandler) handlerClass.newInstance());
+                Command command = (Command) handlerClass.getAnnotation(Command.class);
+                handlers.put(command.value(), (CommandHandler) handlerClass.newInstance());
 
             } catch (Exception e) {
                 throw new RuntimeException("Failed to collect handlers", e);
@@ -87,6 +87,6 @@ public class CommandController {
     }
 
     public static void main(String[] args) {
-        new CommandController().loop();
+        new CommandProcessor().loop();
     }
 }

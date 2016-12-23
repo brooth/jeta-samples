@@ -26,6 +26,6 @@ import static java.lang.annotation.ElementType.TYPE;
  */
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Handler {
+public @interface Command {
     String value();
 }

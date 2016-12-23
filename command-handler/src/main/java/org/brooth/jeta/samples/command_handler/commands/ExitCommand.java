@@ -16,12 +16,12 @@
 package org.brooth.jeta.samples.command_handler.commands;
 
 import org.brooth.jeta.samples.command_handler.CommandHandler;
-import org.brooth.jeta.samples.command_handler.Handler;
+import org.brooth.jeta.samples.command_handler.Command;
 
 /**
  * @author Oleg Khalidov (brooth@gmail.com)
  */
-@Handler("exit")
+@Command("exit")
 public class ExitCommand implements CommandHandler {
     @Override
     public void handle() {
