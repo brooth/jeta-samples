@@ -1,0 +1,37 @@
+group 'org.brooth.jeta.samples'
+version '1.0'
+
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.9'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'net.ltgt.apt'
+
+sourceCompatibility = 1.7
+
+repositories {
+    jcenter()
+}
+
+compileJava {
+    options.sourcepath = files('src/main/java')
+}
+
+dependencies {
+    apt 'org.brooth.jeta:jeta-apt:+'
+    compile 'org.brooth.jeta:jeta:+'
+}
+
+task sayHello(type: JavaExec) {
+  classpath sourceSets.main.runtimeClasspath
+  main = "com.mycompany.myproject.SayHello"
+}
