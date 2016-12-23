@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<handlers>
+    <handler command="greet">org.brooth.jeta.samples.command_handler.commands.GreetingCommand</handler>
+    <handler command="exit">org.brooth.jeta.samples.command_handler.commands.ExitCommand</handler>
+</handlers>
